@@ -1,0 +1,15 @@
+*{
+	-fx-padding: 0.3em ,0em ,0em ,0em;
+}
+
+.label{
+	-fx-paddin: 2em;
+	-fx-font-size: 17px;
+	-fx-font-weight: bold;
+}
+
+#SettingsDisplay {
+	-fx-font-size: 20px;
+	-fx-text-fill: #4B0082;
+	
+}

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1117.0" stylesheets="@../stylesheets/Main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="windows.MainController">
+   <children>
+      <TabPane layoutX="173.0" layoutY="117.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+            <Tab onSelectionChanged="#mainPageLoader" text="Main Page">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="746.0" prefWidth="1047.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <VBox layoutX="164.0" layoutY="162.0" prefHeight="724.0" prefWidth="608.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label text="To :" />
+                                    <ComboBox fx:id="mainBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" />
+                                    <Label text="For :" />
+                                    <ScrollPane fx:id="mainList" prefHeight="200.0" prefWidth="200.0" />
+                                    <Label text="Name the File :" />
+                                    <HBox prefHeight="45.0" prefWidth="1072.0">
+                                       <children>
+                                          <TextField fx:id="fileName" prefHeight="40.0" prefWidth="922.0" />
+                                          <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="142.0" text=".docx" />
+                                       </children>
+                                    </HBox>
+                                    <Label />
+                                    <Button fx:id="mainOkBtn" mnemonicParsing="false" onAction="#createTheFile" prefHeight="48.0" prefWidth="130.0" text="Ok" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </children></AnchorPane>
+              </content>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="52.0" onMouseClicked="#mainPageLoader" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+                     <image>
+                        <Image url="@../../Resource/MainPage.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Tab>
+            <Tab onSelectionChanged="#getDataofComTable" text="Add Company">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutX="282.0" layoutY="190.0" prefHeight="746.0" prefWidth="1047.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label text="Name of The Company :" />
+                              <TextField fx:id="otherComName" />
+                              <Label text="GST Number :" />
+                              <TextField fx:id="othergstNo" />
+                              <Label text="Address :" />
+                              <TextField fx:id="otherAdd" />
+                              <Label />
+                              <ComboBox fx:id="comBox" maxWidth="1.7976931348623157E308" onAction="#updateComData" prefWidth="150.0" />
+                              <Label />
+                              <Button fx:id="comOkBtn" mnemonicParsing="false" onAction="#SavesInComTable" prefHeight="38.0" prefWidth="137.0" text="Ok" />
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+              </content>
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="75.0" onMouseClicked="#getDataofComTable" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Resource/Add%20Company.jpeg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Tab>
+            <Tab fx:id="ParticularTab" onSelectionChanged="#getDataofParticulars" text="Add Particulars">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutX="281.0" layoutY="153.0" prefHeight="746.0" prefWidth="1047.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label text="Describe the Particular :" />
+                              <TextArea fx:id="particularDes" prefHeight="200.0" prefWidth="200.0" />
+                              <Label text="Services Code (Tariff) :" />
+                              <TextField fx:id="serviceCode" />
+                              <Label text="Amont (in Rs.) :" />
+                              <TextField fx:id="amount" />
+                              <Label text="Your Particulars :" />
+                              <ComboBox fx:id="particularCombo" maxWidth="1.7976931348623157E308" onAction="#updateParData" prefHeight="39.0" prefWidth="1032.0" />
+                              <Label />
+                              <Button fx:id="parUploadBtn" mnemonicParsing="false" onAction="#SavesInParDatabase" prefHeight="48.0" prefWidth="147.0" text="Ok" />
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+              </content>
+               <graphic>
+                  <ImageView fitHeight="27.0" fitWidth="71.0" onMouseClicked="#getDataofParticulars" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Resource/add%20Particulars.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Tab>
+            <Tab onSelectionChanged="#getDataofMainTable" text="Default Settings">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox fx:id="SettingsDisplay" layoutX="296.0" layoutY="157.0" prefHeight="631.0" prefWidth="914.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label text="Name of the Propriter :" />
+                              <TextField fx:id="probName" />
+                              <Label text="Name of The Company :" />
+                              <TextField fx:id="comName" />
+                              <Label text="Address of the Company :" />
+                              <TextField fx:id="address" />
+                              <Label text="Telephonone / Mobile Number :" />
+                              <TextField fx:id="telNo" />
+                              <Label text="GST Number :" />
+                              <TextField fx:id="gstNo" />
+                              <Label text="Email Address :" />
+                              <TextField fx:id="emailAdd" />
+                              <Label text="Pan Number :" />
+                              <TextField fx:id="panNo" />
+                              <HBox>
+                                 <children>
+                                    <Label text="Sign of the CEO/Propriter :" />
+                                    <Label fx:id="filePathLabel" />
+                                    <Button fx:id="FileSelectBtn" mnemonicParsing="false" onAction="#FileChoose" text="Button" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="26.0" prefWidth="891.0">
+                                 <children>
+                                    <Button fx:id="uploadBtn" mnemonicParsing="false" onAction="#SavesInDatabase" text="Ok" />
+                                 </children>
+                              </HBox>
+                              <ImageView fx:id="signImage" fitHeight="150.0" fitWidth="256.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+              </content>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="66.0" onMouseClicked="#getDataofMainTable" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Resource/settings.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Tab>
+        </tabs>
+         <opaqueInsets>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </opaqueInsets>
+      </TabPane>
+   </children>
+</AnchorPane>
