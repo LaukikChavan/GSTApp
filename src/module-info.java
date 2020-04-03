@@ -12,6 +12,7 @@ module GSTProjectOne {
 	requires java.desktop;
 	requires poi.ooxml;
 	requires poi.ooxml.schemas;
+	requires poi;
 	exports windows;
 	
 }

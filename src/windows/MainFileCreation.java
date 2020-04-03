@@ -1,69 +1,38 @@
 package windows;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.xwpf.model.XWPFHeaderFooterPolicy;
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFHeader;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
+import javafx.scene.control.Alert;
+
 public class MainFileCreation {
     XWPFDocument document;
     Date date;
+    String code;
     
-	public static void main(String args[]) throws IOException {
-		MainFileCreation m = new MainFileCreation();
-		
-		String header = "Samarth Consultancy Services";
-		String headAdd = "Flat No. L- 603 Ujwal Terraces, Raikar Nagar, Sinhagad Road, Dhayri, Pune - 411041 Maharashtra, India";
-		String telNo = "9822552519";
-		String email = "samarthconsultancyservices@rediffmail.com";
-		String panNumber = "AFKPC1475Q";
-		String gstNumber = "27AFKPC1475Q1ZZ";
-		
-		String oname = "XYZ Co. PVT. LDT";
-		String oadd = "Somewhere, on somewhere, on somewhere, somewhere - 41";
-		String ogst = "27AAECH0073R1Z7";
-		
-		String[] par = {
-				"1234#hiiii#2000",
-				"2345#Byeee#1000",
-				"3456#sleepy#900"
-		};
-		
-		String[] terms = {
-				"plwase make all payment to ......",
-				"Hiiii How are you........"
-		};
-		
-		m.getTheTopHeader(header);
-		m.getTheTopDescriptions(headAdd, telNo, email);
-		m.getTheTopGstnPan(gstNumber, panNumber);
-		m.getTheDatenDes();
-		m.getToSet(oname, oadd, ogst);
-		m.getParticularSet(par);
-		m.getTheSingSet(header);
-		m.getTheTermsSet(terms);
-		m.saveInFile("Temp.docx");
-	}
-	
 	public MainFileCreation() {
 		document = new XWPFDocument();      
 		date  = new Date();
 	}
-	
+		
 	public void createWord(String lines) throws IOException {
             XWPFParagraph paragraph = document.createParagraph();
             XWPFRun run = paragraph.createRun();
@@ -103,8 +72,8 @@ public class MainFileCreation {
 	    run.addBreak();
 	}
 	
-	public void getTheDatenDes() {
-		SimpleDateFormat dnt = new SimpleDateFormat("DD/MM/YYYY");
+	public String getTheDatenDes(String refNo) {
+		SimpleDateFormat dnt = new SimpleDateFormat("dd/ MMM/ yyyy");
 		XWPFParagraph paragraphI = document.createParagraph();
         XWPFRun run = paragraphI.createRun();
         paragraphI.setAlignment(ParagraphAlignment.CENTER);
@@ -116,10 +85,10 @@ public class MainFileCreation {
         run = par.createRun();
         par.setAlignment(ParagraphAlignment.RIGHT);
         y = y-2000;
-        run.setText("Invoice No - " + y + "-" + (y+1) + "/139");
+        run.setText("Invoice No - " + y + "-" + (y+1) + "/" + refNo);
         run.addBreak();
         run.setText("Date :- " + dnt.format(date));
-        
+        return String.valueOf(dnt.format(date));
 	}
 	
 	public void getToSet(String name, String add, String gst) {
@@ -155,43 +124,41 @@ public class MainFileCreation {
 	    run.setBold(true);
 	    run.setText(gst);
 	    
+	    code = gst.substring(0,2);
+	    
 	    run = par1.createRun();
 	    run.setBold(false);
 	    run.addTab();
 	    run.setText("Place of Service : Maharashtra");
 	    run.addTab();
-	    run.setText("Code : 27");
+	    run.setText("Code : " + code);
 	    run.addBreak();
 	    run.addBreak();
 	}
 	
-	public void getParticularSet(String[] par) {
+	public String getParticularSet(String[] par, String gstText) {
 		int i = par.length;
 		i = i+4;
 		XWPFTable table = document.createTable(i, 4);
 		
-		// write to first row, first column
 		XWPFParagraph p1 = table.getRow(0).getCell(0).getParagraphs().get(0);
 		p1.setAlignment(ParagraphAlignment.CENTER);
 		XWPFRun r1 = p1.createRun();
 		r1.setBold(true);
 		r1.setText("Sr.No");
 		
-		// write to first row, second column
 		XWPFParagraph p2 = table.getRow(0).getCell(1).getParagraphs().get(0);
 		p2.setAlignment(ParagraphAlignment.CENTER);
 		XWPFRun r2 = p2.createRun();
 		r2.setBold(true);
 		r2.setText("Particular");
 		
-		// write to first row, third column
 		XWPFParagraph p3 = table.getRow(0).getCell(2).getParagraphs().get(0);
 		p3.setAlignment(ParagraphAlignment.CENTER);
 		XWPFRun r3 = p3.createRun();
 		r3.setBold(true);
 		r3.setText("Service Code");
 		
-		// write to first row, fourth column
 		XWPFParagraph p4 = table.getRow(0).getCell(3).getParagraphs().get(0);
 		p4.setAlignment(ParagraphAlignment.CENTER);
 		XWPFRun r4 = p4.createRun();
@@ -211,21 +178,28 @@ public class MainFileCreation {
 			
 			k++;
 		}
-		
 		float gst;
-		gst = ((amount / 100) * 9);
+		gst = ((amount / 100) * Integer.parseInt(gstText));
 		float total;
-
-		table.getRow(k).getCell(2).setText("CGST 9%");
-		table.getRow(k).getCell(3).setText(""+gst);
 		
-		k++;
-
-		table.getRow(k).getCell(2).setText("SGST 9%");
-		table.getRow(k).getCell(3).setText(""+gst);
-		
-		k++;
-		
+		if(Integer.parseInt(code) == 27) {
+			
+			table.getRow(k).getCell(2).setText("CGST :"+gstText+"%");
+			table.getRow(k).getCell(3).setText(""+gst);
+			
+			k++;
+	
+			table.getRow(k).getCell(2).setText("SGST :"+gstText+"%");
+			table.getRow(k).getCell(3).setText(""+gst);
+			
+			k++;
+		} else {
+			
+			table.getRow(k).getCell(2).setText("IGST :" + (Integer.parseInt(gstText) + Integer.parseInt(gstText)) + "%");
+			table.getRow(k).getCell(3).setText(""+(gst*2));
+			
+			k++;
+		}
 		total = (amount + gst + gst);
 		
 		XWPFParagraph t = table.getRow(k).getCell(2).getParagraphs().get(0);
@@ -248,6 +222,8 @@ public class MainFileCreation {
 		y1.setFontSize(11);
 		y1.setCapitalized(true);
 		y1.setText("Amount is Words :- " + numInWords + " RS.");
+		
+		return String.valueOf(total);
 	}
 	
 	public void getTheSingSet(String s) {
@@ -268,22 +244,17 @@ public class MainFileCreation {
 		run.setText("Authorised Signatory");
 	}
 	
-	public void getTheTermsSet(String[] s) {
+	public void getTheTermsSet(String s) throws SQLException {
 		XWPFParagraph par = document.createParagraph();
 		XWPFRun run = par.createRun();
-		
 		run.setBold(true);
 		run.setFontSize(13);
 		run.setText("Terms & Conditions : ");
-		int n = s.length;
 		run.addBreak();
 		run = par.createRun();
-		run.setFontSize(11);
-		for(int i=0; i < n; i++) {
-			run.addBreak();
-			run.setText((i+1) + ") " + s[i]);
-		}
-		
+		run.setFontSize(10);
+		run.addBreak();
+		run.setText(s);
 	}
 	
  	public void saveInFile(String s) throws IOException {
@@ -292,6 +263,49 @@ public class MainFileCreation {
 		document.close();
 		System.out.println("File Is Creted");
 	}
+ 	
+ 	public void createExcelFile(ResultSet rs) throws SQLException, EncryptedDocumentException, FileNotFoundException, IOException {   
+        Workbook writeWorkbook = new HSSFWorkbook();
+        Sheet desSheet = writeWorkbook.createSheet("new sheet");
+        String FileName = "";
+        try{
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+
+            String[] headings = {"ID","Company Name", "GST Number", "Refrence No", "Date", "Total Bill"};
+            
+            Row desRow1 = desSheet.createRow(0);
+            for(int col=0 ;col < columnsNumber;col++) {
+                Cell newpath = desRow1.createCell(col);
+                newpath.setCellValue(headings[col]);
+            }
+            while(rs.next()) {
+                System.out.println("Row number" + rs.getRow() );
+                Row desRow = desSheet.createRow(rs.getRow());
+                for(int col=0 ;col < columnsNumber;col++) {
+                    Cell newpath = desRow.createCell(col);
+                    newpath.setCellValue(rs.getString(col+1));  
+                }
+                
+                SimpleDateFormat dn = new SimpleDateFormat("MMMMMMMM_yyyy");
+                SimpleDateFormat df = new SimpleDateFormat("yyyy");
+                String Fname = String.valueOf(dn.format(date)) + "-" + String.valueOf(Integer.parseInt(String.valueOf(df.format(date)).substring(2))+1);
+                FileName = System.getProperty("user.home") + "/Desktop/" + Fname + ".xlsx";
+                FileOutputStream fileOut = new FileOutputStream(FileName);
+                writeWorkbook.write(fileOut);
+                fileOut.close();
+            }
+
+			Alert a1 = new Alert(Alert.AlertType.CONFIRMATION);
+			a1.setTitle("File is Created");		
+			a1.setContentText(FileName + " is Created at deskstop");	
+			a1.setHeaderText(null);
+			a1.showAndWait();		
+        }
+        catch (SQLException | IOException e) {
+            System.out.println("Failed to get data from database");
+        }
+    }
 }
 
 

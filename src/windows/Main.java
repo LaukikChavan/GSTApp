@@ -16,7 +16,6 @@ public class Main extends Application {
 	public void start(Stage pStage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
-			
 			Scene scene = new Scene(root);
 			pStage.setTitle("GST Invoice application");
 			pStage.setScene(scene);		
