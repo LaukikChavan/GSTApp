@@ -146,7 +146,7 @@ public class DatabaseConnections {
 	
 	public void addToMainTable(String name, String comName, String address, String gstNumber, String panNumber, String phoneNumber, String email) throws SQLException {
 		try {
-			String sql = "INSERT INTO MyCompany(id,name,comname,address,phonenumber,gstnumber,pannumber,email,signimg,imgname) VALUES(?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO MyCompany(id,name,comname,address,phonenumber,gstnumber,pannumber,email) VALUES(?,?,?,?,?,?,?,?)";
 	        PreparedStatement pstmt = c.prepareStatement(sql);
 	        	pstmt.setLong(1, 1);
 	            pstmt.setString(2, name);
