@@ -20,7 +20,7 @@ public class DatabaseConnections {
 
 	public void connectToDatabase() throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:Database.db");
+		c = DriverManager.getConnection("jdbc:sqlite:resources/Database.db");
 		smt = c.createStatement();
 		System.out.println("Database is Connected");
 		createTable();

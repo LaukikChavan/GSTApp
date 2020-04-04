@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1117.0" stylesheets="@../../../resources/Main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="windows.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1117.0" stylesheets="resources/Main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="windows.MainController">
    <children>
       <TabPane layoutX="173.0" layoutY="117.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -52,7 +52,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="52.0" onMouseClicked="#mainPageLoader" pickOnBounds="true" preserveRatio="true" rotate="90.0">
                      <image>
-                        <Image url="@../../../resources/MainPage.png" />
+                        <Image url="resources/MainPage.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -86,7 +86,7 @@
                <graphic>
                   <ImageView fitHeight="22.0" fitWidth="24.0" onMouseClicked="#getDataofComTable" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../resources/Add%20Company.jpeg" />
+                        <Image url="resources/Add Company.jpeg" />
                      </image>
                   </ImageView>
                </graphic>
@@ -120,7 +120,7 @@
                <graphic>
                   <ImageView fitHeight="27.0" fitWidth="25.0" onMouseClicked="#getDataofParticulars" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../resources/add%20Particulars.png" />
+                        <Image url="resources/add Particulars.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -160,7 +160,7 @@
                <graphic>
                   <ImageView fitHeight="22.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../resources/info.png" />
+                        <Image url="resources/info.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -200,7 +200,7 @@
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="66.0" onMouseClicked="#getDataofMainTable" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../resources/settings.png" />
+                        <Image url="resources/settings.png" />
                      </image>
                   </ImageView>
                </graphic>
